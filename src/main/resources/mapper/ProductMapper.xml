@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.apache.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="milletshop.millet.mapper.ProductMapper">
+
+    <!-- 定义产品的返回值集合 -->
+    <resultMap id="productList" type="product">
+        <result column="id" property="id"/>
+        <result column="productName" property="productName"/>
+        <result column="stock" property="stock"/>
+        <result column="price" property="price"/>
+        <result column="version" property="version"/>
+        <result column="note" property="note"/>
+    </resultMap>
+
+    <!-- 定义手机的返回值集合 -->
+    <resultMap id="phoneList" type="phone">
+        <result column="id" property="id"/>
+        <result column="phonename" property="phoneName"/>
+        <result column="phoneprice" property="phonePrice"/>
+        <result column="overview" property="overView"/>
+        <result column="imagepath" property="imagePath"/>
+        <result column="phone_color" property="color"/>
+    </resultMap>
+
+    <!-- 定义手机版本的返回值集合 -->
+    <resultMap id="version_phone_List" type="version_phone">
+        <result column="id" property="id"/>
+        <result column="phone_id" property="phone_id"/>
+        <result column="phone_ram" property="phone_ram"/>
+        <result column="phone_rom" property="phone_rom"/>
+    </resultMap>
+
+    <!-- 获取手机列表集合 -->
+    <select id="getPhoneList" resultMap="phoneList">
+        select id,phonename,phoneprice,imagepath,overview
+        from t_phone  limit 10;
+    </select>
+
+    <!-- 通过页面获取手机集合 -->
+    <select id="getPhoneListByPage" parameterType="int" resultMap="phoneList">
+        select id,phonename,phoneprice,imagepath,overview
+        from t_phone where id >= (select id from t_phone limit #{pageSize},1) limit 10;
+    </select>
+
+    <!-- 获取手机信息通过手机id -->
+    <select id="getPhoneById" parameterType="int" resultType="phone">
+        select id,phonename,phoneprice,imagepath,overview
+        from t_phone where id = #{id}
+    </select>
+
+    <!-- 依据手机名称获取手机信息 -->
+    <select id="getPhoneWithName" parameterType="String" resultType="phone">
+        select id,phonename,phoneprice,imagepath,overview
+        from t_phone where phoneName = #{phoneName} limit 1
+    </select>
+
+    <!-- 通过手机名称获取手机对应的颜色信息 -->
+    <select id="getPhoneColorWithName" parameterType="String" resultMap="phoneList">
+        select tc.id,tc.phone_color from t_phone t,t_color_phone tc
+        WHERE tc.id in (
+        select tpc.color_id FROM t_with_color_phone tpc WHERE
+        (select t.id from t_phone t where t.phonename = '小米5c' limit 1) = tpc.phone_id
+        ) AND t.phonename = '小米5c';
+    </select>
+
+    <!-- 通过手机名称获取手机对应的版本信息 -->
+    <select id="getPhoneVersionWithName" parameterType="String" resultMap="version_phone_List">
+        select t.id,t.phone_id,t.phone_ram,t.phone_rom from t_version_phone t where
+        t.phone_id = (select id from t_phone where phonename = #{phoneName})
+    </select>
+
+    <!-- 通过手机名称获取手机对应的配置信息-->
+    <select id="getPhoneConfigWithName" parameterType="String" resultMap="phoneList">
+        select t.id,t.imagepath ,t.imagepath,t.phonename,tc.phone_color from t_phone t,t_color_phone tc
+        WHERE tc.id in (
+        select tpc.color_id FROM t_phone_color tpc WHERE
+        (select t.id from t_phone t where t.phonename = #{phoneName} limit 1) = tpc.phone_id
+        ) AND t.phonename = #{phoneName};
+    </select>
+
+    <!-- 通过名称获取手机对应的信息分页模糊查询 -->
+    <select id="getPhoneByFuzzySearchWithPhoneName" resultMap="phoneList">
+       select id,phonename,phoneprice,imagepath,overview from t_phone where phonename like #{phoneName}
+       and id between #{minId} and #{maxId}
+    </select>
+
+    <!-- 通过页面的手机id获取对应的手机信息 -->
+    <select id="getPhoneByFuzzySearch" parameterType="int" resultMap="phoneList">
+        select id,phonename,phoneprice,imagepath,overview from t_phone where id between #{minId} and #{maxId}
+    </select>
+
+    <!-- 定义产品的返回值集合-->
+    <select id="getProductList" resultMap="productList">
+        select id,product_name as productName,stock,price,version,note
+        from t_product
+    </select>
+
+    <!-- 通过id获取对应的产品信息 -->
+    <select id="getProduct" parameterType="long" resultType="product">
+        select id,product_name as productName,stock,price,version,note
+        from t_product
+        where id = #{id}
+    </select>
+
+    <!-- 通过id出去对应的产品信息-->
+    <update id="decreaseProduct">
+        update t_product set stock = stock - #{quantity}
+        where id = #{id}
+    </update>
+</mapper>
+
+
+

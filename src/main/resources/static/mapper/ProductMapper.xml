@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.apache.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="milletshop.millet.mapper.ProductMapper">
+    <select id="getProduct" parameterType="long" resultType="product">
+        select id,product_name as productName,stock,price,version,note
+        from t_product
+        where id = #{id}
+    </select>
+
+    <update id="decreaseProduct">
+        update t_product set stock = stock - #{quantity}
+        where id = #{id}
+    </update>
+</mapper>

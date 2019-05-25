@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.apache.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="milletshop.millet.mapper.ShoppingCarMapper">
+
+    <resultMap id="shoppingCarList" type="shoppongcar_phone">
+        <result column="id" property="id" />
+        <result column="phonename" property="phoneName" />
+        <result column="phoneprice" property="phonePrice" />
+        <result column="count" property="count" />
+        <result column="totalcount" property="totalCount" />
+        <result column="user_id" property="user_id" />
+    </resultMap>
+    <!-- #{phoneName},#{phonePrice},#{count}.#{totalCount}
+    @Param("phoneName") String phoneName, @Param("phonePrice") String phonePrice,
+                              @Param("count") Integer count, @Param("totalCount") Double totalCount-->
+    <insert id="addPhoneToShoppingCar"  parameterType="shoppongcar_phone">
+        insert into t_goodsphone (phonename,phoneprice,count,totalcount,user_id)values
+        (#{phoneName},#{phonePrice},#{count},#{totalCount},#{user_id})
+    </insert>
+
+    <select id="getShoppingInfoByUserId" resultMap="shoppingCarList">
+        select t.id,t.phonename,t.phoneprice,t.count,t.totalcount,t.user_id from t_goodsphone t where t.user_id = #{user_id}
+    </select>
+
+
+    <update id="updateCount" parameterType="int">
+        update t_goodsphone t set t.count = t.count + 1 where t.id = #{id}
+    </update>
+
+</mapper>

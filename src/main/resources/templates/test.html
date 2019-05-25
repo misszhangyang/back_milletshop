@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<scirpt language="JavaScript" type="text/javascript" src="js/jquery-1.8.2.js"></scirpt>
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+<body>
+<h1>网站抢购测试</h1>
+<button onclick="test()">测试抢购商品</button>
+<a href="upload.html">a标签实现文件上传</a>
+<button onclick="upload()">文件上传</button>
+<img src="../milletshop/image/3.jpg"/>
+</body>
+<script language="javascript" type="text/javascript">
+    var x = 0;
+    function test() {
+           if(x < 3) {
+               var params = {
+                   userId: 1,
+                   productId: 1,
+                   quantity: 1
+               };
+               $.ajax({
+                   type: "post",
+                   url: "./purchase",
+                   data: params,
+                   success: function () {
+                       x++;
+                       test();
+                   }
+               });
+           }
+    }
+
+    function upload(){
+        window.location.href="upload";
+    }
+</script>
+</html>
