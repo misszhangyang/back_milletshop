@@ -13,6 +13,8 @@ import java.util.List;
  * 关于购物车的方法
  * 前台->点击手机->传入手机的id，phonename,->查询手机列表找到对应的手机数据
  */
+
+
 @RestController
 public class ShoppingCarController {
 
@@ -54,6 +56,11 @@ public class ShoppingCarController {
     public List<ShoppingCarPhone> getShoppingPhoneListById(@RequestBody Integer user_id){
         List<ShoppingCarPhone> list = shoppingCarMapper.getShoppingInfoByUserId(user_id);
         return list;
+    }
+
+    @PostMapping("/delShoppingPhoneById")
+    public int delShoppingPhoneById(@RequestBody int id){
+        return shoppingCarMapper.delShoppingPhoneById(id);
     }
 
 }

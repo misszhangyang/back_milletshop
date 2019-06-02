@@ -22,4 +22,6 @@ public interface ShoppingCarMapper {
     //将商品数量加一
     int updateCount(int id);
 
+    //依据id将对应的购物车中的商品移除
+    int delShoppingPhoneById(int id);
 }
