@@ -1,4 +1,4 @@
-package milletshop.millet.datastructure;
+﻿package milletshop.millet.datastructure;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -116,6 +116,8 @@ public class TestGenercity {
         return list;
     }
 
+ 
+    //测试案例
     @Test
     public void testSet() {
         Set set = new TreeSet(new ASCIICaseInsensitiveComparator());
