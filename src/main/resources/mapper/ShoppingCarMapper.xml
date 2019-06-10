@@ -29,4 +29,8 @@
         update t_goodsphone t set t.count = t.count + 1 where t.id = #{id}
     </update>
 
+    <delete id="delShoppingPhoneById" parameterType="int">
+        delete from t_goodsphone  where id = #{id}
+    </delete>
+
 </mapper>
