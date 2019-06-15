@@ -21,12 +21,50 @@ public class TestThreadSequeExecute {
     protected  static Log log = LogFactory.getLog(TestThreadSequeExecute.class);
 
     @Test
+    public void testThreadOrRunnable(){
+
+    }
+
+
+
+    /**
+     * 测试守护线程的作用
+     * @param args
+     */
+    @Test
+    public static void main(String[] args) {
+
+        System.out.println("main线程开始启动");
+        Thread thread = new Thread("测试线程"){
+            @Override
+            public void run(){
+                while(true){
+                    System.out.println("测试线程开始执行");
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+         thread.setDaemon(true);
+        //  如何没有将测试线程设置成守护线程，则start之后的测试线程将会一直执行，知道栈溢出，
+//        如果将他设置成守护线程，则当main线程执行结束之后，就会结束
+        thread.start();
+        System.out.println("main线程执行结束");
+
+
+    }
+
+    @Test
     public void test(){
 //         getThread();
         implementRunnable();
     }
 
     private void implementRunnable(){
+
         Runnable run1 = new Runnable() {
             @Override
             public void run() {
@@ -43,6 +81,7 @@ public class TestThreadSequeExecute {
         Thread thread1 = new Thread(run1);
         Thread thread2 = new Thread(run2);
 
+        System.out.println(thread1.getName());
         thread1.start();
         thread2.start();
     }
@@ -164,3 +203,6 @@ public class TestThreadSequeExecute {
 
 
 }
+
+
+
