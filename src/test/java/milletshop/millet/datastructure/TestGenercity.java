@@ -14,6 +14,9 @@ import java.util.*;
 @SpringBootTest
 public class TestGenercity {
 
+    //记录Hanio塔的移动次数问题
+    private static int n;
+
     @Test
     public void testNewRounder(){
         System.out.println(new Random().nextInt(1000));
@@ -23,6 +26,24 @@ public class TestGenercity {
     public void testStr(){
         String str = "{{[{{dewqedwq}}]}}";
         System.out.println(symbalMarching(str));
+    }
+
+    @Test
+    public void testHanio(){
+        hanio(3,1,1,1);
+    }
+
+    public void hanio(int n,int a,int b,int c){
+        if(n > 0){
+            hanio(n-1,a,c,b);
+            move(a,b);
+            hanio(n-1,c,b,a);
+        }
+    }
+
+    private void move(int a, int b) {
+        n ++;
+        System.out.println("执行一次移动的过程" + n);
     }
 
     /**
