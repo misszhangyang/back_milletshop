@@ -1,4 +1,4 @@
-﻿package milletshop.millet.datastructure;
+package milletshop.millet.datastructure;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +12,24 @@ import java.util.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TestGenercity {
+public class HashTest {
+
+    @Test
+    public void testHash(){
+
+        int[] arr =  {1,2,3,45,6,7,7,8};
+
+        HashSet hashSet = new HashSet();
+
+        HashMap hashMap = new HashMap();
+
+        System.out.println(hashMap);
+        for(int i : arr){
+
+            hashMap.put("1",i);
+        }
+        System.out.println(hashMap);
+    }
 
     @Test
     public void testNewRounder(){
@@ -116,7 +133,7 @@ public class TestGenercity {
         return list;
     }
 
- 
+
     //测试案例
     @Test
     public void testSet() {
@@ -156,4 +173,6 @@ public class TestGenercity {
         else
             System.out.println(f.getName() + " " + f.length());
     }
+
+
 }
