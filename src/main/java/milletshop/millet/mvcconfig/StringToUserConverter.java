@@ -2,7 +2,10 @@ package milletshop.millet.mvcconfig;
 
 import milletshop.millet.entity.User;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 /**
  * 配置http请求时的自定义相关类型转化
@@ -23,5 +26,10 @@ public class StringToUserConverter implements Converter<String,User> {
         user.setUsername(username);
         user.setPassword(password);
         return user;
+    }
+
+    @Scheduled(fixedRate = 5000)
+    public void testScheduled(){
+        System.out.println("定时任务现在开启：" + new Date());
     }
 }

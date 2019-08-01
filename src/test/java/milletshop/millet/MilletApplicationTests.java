@@ -2,15 +2,19 @@ package milletshop.millet;
 
 import milletshop.millet.dao.ProductDao;
 import milletshop.millet.dao.PurchaseRecord;
+import milletshop.millet.dao.RedisDao;
 import milletshop.millet.entity.Product;
 import milletshop.millet.mapper.ProductMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -20,6 +24,22 @@ public class MilletApplicationTests {
 
     @Autowired
     private ProductMapper productMapper;
+
+    @Autowired
+    private RedisDao redisDao;
+
+    @Test
+    public void testRedis(){
+        redisDao.setDataToRedis("12","1212");
+        redisDao.setDataToRedis("13","nihao");
+        System.out.println(redisDao.getDataFromRedis("12"));
+        System.out.println(redisDao.getDataFromRedis("13"));
+    }
+
+    @Test
+    public void testScheduled(){
+        System.out.println("定时任务现在开启：" + new Date());
+    }
 
     @Test
     public void testGetPhoneName(){

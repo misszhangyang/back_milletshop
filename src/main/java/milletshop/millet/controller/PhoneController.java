@@ -5,6 +5,7 @@ import milletshop.millet.entity.Phone;
 import milletshop.millet.entity.Version_Phone;
 import milletshop.millet.mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
@@ -22,6 +23,7 @@ public class PhoneController {
      * 获取手机列表
      * @return
      */
+    @Cacheable("phoneLists")
     @PostMapping("/getPhoneList")
     public List<Phone> getPhoneList(){
         long start = System.currentTimeMillis();

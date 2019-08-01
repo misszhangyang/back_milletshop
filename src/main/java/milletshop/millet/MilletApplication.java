@@ -2,11 +2,15 @@ package milletshop.millet;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 
 @SpringBootApplication
+@EnableCaching
+@EnableScheduling
 public class MilletApplication {
 
 //    ServerSocket socket;
@@ -39,6 +43,7 @@ public class MilletApplication {
 
         SpringApplication.run(MilletApplication.class, args);
 //
+
 //        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 //            System.out.println("the hookThread is start---");
 //        }));
