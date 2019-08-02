@@ -1,4 +1,4 @@
-package milletshop.millet.config;
+package milletshop.millet.mvcconfig;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

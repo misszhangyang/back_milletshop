@@ -1,23 +1,17 @@
 package milletshop.millet;
 
-import org.apache.ibatis.logging.LogFactory;
-import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.ApplicationContext;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import java.util.concurrent.CountDownLatch;
-
+import java.io.IOException;
+import java.net.ServerSocket;
 
 @SpringBootApplication
 @EnableCaching
 @EnableScheduling
 public class MilletApplication {
-
-    protected static Logger logger = (Logger) LogFactory.getLog(MilletApplication.class);
 
 //    ServerSocket socket;
 //
@@ -37,7 +31,7 @@ public class MilletApplication {
 //    }
 
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
 //        Thread thread = new Thread(() -> {
 //            System.out.println("the new thread is start");
@@ -47,19 +41,7 @@ public class MilletApplication {
 //
 //        System.out.println("Helllo,this is Main Thread");
 
-//        SpringApplication.run(MilletApplication.class, args);
-        ApplicationContext ctx =  SpringApplication.run(MilletApplication.class, args);
-
-        StringRedisTemplate template = ctx.getBean(StringRedisTemplate.class);
-        CountDownLatch latch = ctx.getBean(CountDownLatch.class);
-
-        logger.info("Sending message...");
-        template.convertAndSend("chat", "Hello from Redis!");
-
-        latch.await();
-
-        System.exit(0);
-
+        SpringApplication.run(MilletApplication.class, args);
 //
 
 //        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
