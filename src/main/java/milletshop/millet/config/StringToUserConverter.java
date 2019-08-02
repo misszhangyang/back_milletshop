@@ -1,4 +1,4 @@
-package milletshop.millet.mvcconfig;
+package milletshop.millet.config;
 
 import milletshop.millet.entity.User;
 import org.springframework.core.convert.converter.Converter;
